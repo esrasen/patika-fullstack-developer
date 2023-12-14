@@ -1,0 +1,10 @@
+
+.idea/
+*.iml
+out/
+
+### Mac OS ###
+.DS_Store
+
+### VS Code ###
+.vscode/
