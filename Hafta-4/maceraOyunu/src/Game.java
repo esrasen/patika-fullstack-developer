@@ -32,20 +32,39 @@ public class Game {
                         location = null;
                         break;
                     case 1:
+                        if (player.getInventory().isFood() && player.getInventory().isFirewood() && player.getInventory().isWater()){
+                            System.out.println("Tebrikler! Oyunu kazandınız!");
+                            return;
+                        }
                         location = new SafeHouse(player);
                         break;
                     case 2:
                         location = new ToolStore(player);
                         break;
                     case 3:
-                        location = new Cave(player);
-                        break;
+                        if (player.getInventory().isFood() == false) {
+                            location = new Cave(player);
+                            break;
+                        } else {
+                            System.out.println("Mağaraya daha önce girdiniz ve ödülünüzü aldınız!");
+                            continue;
+                        }
                     case 4:
-                        location = new Forest(player);
-                        break;
+                        if (player.getInventory().isFirewood() == false) {
+                            location = new Forest(player);
+                            break;
+                        } else {
+                            System.out.println("Ormana daha önce girdiniz ve ödülünüzü aldınız!");
+                            continue;
+                        }
                     case 5:
-                        location = new River(player);
-                        break;
+                        if (player.getInventory().isWater() == false) {
+                            location = new River(player);
+                            break;
+                        } else {
+                            System.out.println("Nehire daha önce girdiniz ve ödülünüzü aldınız!");
+                            continue;
+                        }
                     case 6:
                         location = new Mine(player);
                         break;

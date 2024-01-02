@@ -54,10 +54,11 @@ public abstract class BattleLoc extends Location {
         System.out.println("<S>avaş veya <K>aç: ");
         String selectCase = input.nextLine().toUpperCase();
         if (selectCase.equals("S") && combat(obsNumber)) {
-            System.out.println("Savaş başlıyor! Dikkatli ol!");
+            System.out.println("Savaş bitti!");
             System.out.println("=======================================");
             //Savaş metodları
             System.out.println(this.getName() + " tüm düşmanları yendiniz!");
+            regionReward();
             return true;
         }
 
@@ -67,30 +68,7 @@ public abstract class BattleLoc extends Location {
         }
         return true;
     }
-
-/*
-    public boolean afterBattle() {
-
-        if (getMaxObstacle() == 0 && getPlayer().getInv().isFood() == false) {
-            System.out.println("Tebrikler! Mağaradan çıktınız ve ödülünüzü aldınız!");
-            getPlayer().getInv().setFood(true);
-            return true;
-        } else if (getMaxObstacle() == 0 && getPlayer().getInv().isFood() == true) {
-            System.out.println("Mağaradan çıktınız ve ödülünüzü daha önce aldınız!");
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-     public boolean isWin() {
-        if (getPlayer().getInv().isFood() && getPlayer().getInv().isWater() && getPlayer().getInv().isFirewood()) {
-            System.out.println("Tebrikler! Oyunu kazandınız!");
-            return true;
-        }
-        return false;
-    }
-    public void applyAward() {
+    public void regionReward() {
         if (this instanceof Cave) {
             getPlayer().getInventory().setFood(true);
             System.out.println("Yemek (Food) ödülü envanterinize eklendi!");
@@ -102,7 +80,6 @@ public abstract class BattleLoc extends Location {
             System.out.println("Su (Water) ödülü envanterinize eklendi!");
         }
     }
-*/
 
     public boolean combat(int obsNumber) {
         for (int i = 1; i <= obsNumber; i++) {
@@ -153,12 +130,12 @@ public abstract class BattleLoc extends Location {
 
                 if (isSnake) {
                     Snake snake = (Snake) getObstacle();
+                    snake.setWarDiamond(snake.randomWarDiamond());
                     if (snake.getWarDiamond() instanceof Weapon){
                         getPlayer().getInventory().setWeapon((Weapon) snake.getWarDiamond());
                     } else if (snake.getWarDiamond() instanceof Armor){
                         getPlayer().getInventory().setArmor((Armor) snake.getWarDiamond());
                     }
-                    snake.setWarDiamond(snake.randomWarDiamond());
                     System.out.println(snake.getWarDiamond()!= null ? snake.getWarDiamond()+ " Kazandınız!" : "");
                 }
                 getPlayer().setMoney(getPlayer().getMoney() + getObstacle().getAward());
