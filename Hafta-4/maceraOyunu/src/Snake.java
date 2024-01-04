@@ -10,7 +10,7 @@ public class Snake extends Obstacle {
     }
 
     @Override
-    public void setDamage(int damage) {
+    public void setDamage(int damage) {     // Yılanın hasarını her yılan için random olarak 3-6 arasında belirleyelim.
         Random r = new Random();
             int i = r.nextInt(damage) + 3;
             super.setDamage(i);
@@ -21,7 +21,7 @@ public class Snake extends Obstacle {
         return "Yılan";
     }
 
-    public WarDiamond getWarDiamond() {
+    public WarDiamond getWarDiamond() {     //Eğer yılanın üzerinde silah veya zırh varsa onu döndürüyoruz.
         if (weapon != null) {
             return weapon;
         } else if (armor != null) {
@@ -30,7 +30,7 @@ public class Snake extends Obstacle {
         return null;
     }
 
-    public void setWarDiamond(WarDiamond warDiamond) {
+    public void setWarDiamond(WarDiamond warDiamond) {      //Yılanın üzerine silah veya zırh eklemek için
         if (warDiamond instanceof Weapon) {
             this.weapon = (Weapon) warDiamond;
         } else if (warDiamond instanceof Armor) {
@@ -39,12 +39,12 @@ public class Snake extends Obstacle {
     }
 
 
-    public WarDiamond randomWarDiamond() {
+    public WarDiamond randomWarDiamond() {          //Yılandan gelen ödülü random olarak belirlemek için
         Random r = new Random();
         //0-100 arası random sayı üret
         int i = r.nextInt(101);
 
-        if (i < 15) {
+        if (i <= 15) {
             Random r2 = new Random();
             int j = r2.nextInt(101);
             //silah
@@ -55,7 +55,7 @@ public class Snake extends Obstacle {
             } else if (j >= 50) {
                 return Weapon.getWeaponById(1);
             }
-        } else if (i >15 && i < 30) {
+        } else if (i >15 && i <= 30) {
             Random r2 = new Random();
             int j = r2.nextInt(101);
             //zırh
@@ -66,7 +66,7 @@ public class Snake extends Obstacle {
             } else if (j >= 50) {
                 return Armor.getArmorById(1);
             }
-        } else if (i > 30 && i < 55) {
+        } else if (i > 30 && i <= 55) {
             Random r2 = new Random();
             int j = r2.nextInt(101);
             //para kazanma ihtimali

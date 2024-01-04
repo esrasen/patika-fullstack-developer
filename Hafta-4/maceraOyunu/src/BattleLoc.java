@@ -58,7 +58,7 @@ public abstract class BattleLoc extends Location {
             System.out.println("=======================================");
             //Savaş metodları
             System.out.println(this.getName() + " tüm düşmanları yendiniz!");
-            regionReward();
+            regionReward();     //Ödül kazanma
             return true;
         }
 
@@ -68,12 +68,14 @@ public abstract class BattleLoc extends Location {
         }
         return true;
     }
+
     public void regionReward() {
-        if (this instanceof Cave) {
-            getPlayer().getInventory().setFood(true);
+        //Ödül kazanma
+        if (this instanceof Cave) {     //instanceof: bu bölge Cave sınıfından ise
+            getPlayer().getInventory().setFood(true);       //food ödülü envanterine eklendi
             System.out.println("Yemek (Food) ödülü envanterinize eklendi!");
-        } else if (this instanceof Forest) {
-            getPlayer().getInventory().setFirewood(true);
+        } else if (this instanceof Forest) {        //instanceof: bu bölge Forest sınıfından ise
+            getPlayer().getInventory().setFirewood(true);       //firewood ödülü envanterine eklendi
             System.out.println("Odun (Firewood) ödülü envanterinize eklendi!");
         } else if (this instanceof River) {
             getPlayer().getInventory().setWater(true);
@@ -83,7 +85,7 @@ public abstract class BattleLoc extends Location {
 
     public boolean combat(int obsNumber) {
         for (int i = 1; i <= obsNumber; i++) {
-            boolean isSnake = getObstacle().getName().equals("Yılan");
+            boolean isSnake = getObstacle().getName().equals("Yılan");  //Yılan ile savaşılıyorsa isSnake true olur
             if (isSnake) {
                 this.setObstacle(new Snake());
             }
@@ -91,11 +93,11 @@ public abstract class BattleLoc extends Location {
             playerStats();
             obstacleStats(i);
 
-            boolean firstMove = Math.random() * 100 <= 50;
+            boolean firstMove = Math.random() * 100 <= 50;      //%50 ihtimalle ilk hamle kimde olacak
             while (getPlayer().getHealth() > 0 && getObstacle().getHealth() > 0) {
 
 
-                if (firstMove) {
+                if (firstMove) {        //ilk hamle oyuncuda ise
 
                     System.out.println("Vuruş sırası sizde!");
                     System.out.println("<V>ur veya <K>aç: ");
@@ -108,7 +110,7 @@ public abstract class BattleLoc extends Location {
                     } else {
                         return false;
                     }
-                } else {
+                } else {        //ilk hamle düşmanda ise
 
                     if (getObstacle().getHealth() > 0) {
                         System.out.println();
@@ -122,7 +124,7 @@ public abstract class BattleLoc extends Location {
                         afterHit();
                     }
                 }
-                firstMove = !firstMove;
+                firstMove = !firstMove;     //sıra değişimi
             }
 
             if (getObstacle().getHealth() < getPlayer().getHealth()) {
@@ -130,15 +132,16 @@ public abstract class BattleLoc extends Location {
 
                 if (isSnake) {
                     Snake snake = (Snake) getObstacle();
-                    snake.setWarDiamond(snake.randomWarDiamond());
-                    if (snake.getWarDiamond() instanceof Weapon){
-                        getPlayer().getInventory().setWeapon((Weapon) snake.getWarDiamond());
-                    } else if (snake.getWarDiamond() instanceof Armor){
-                        getPlayer().getInventory().setArmor((Armor) snake.getWarDiamond());
+                    snake.setWarDiamond(snake.randomWarDiamond());  //yılanın ödülü random olarak belirlenir
+                    if (snake.getWarDiamond() instanceof Weapon){   //yılanın ödülü silah ise
+                        getPlayer().getInventory().setWeapon((Weapon) snake.getWarDiamond());   //silah envanterine eklenir
+                    } else if (snake.getWarDiamond() instanceof Armor){ //yılanın ödülü zırh ise
+                        getPlayer().getInventory().setArmor((Armor) snake.getWarDiamond()); //zırh envanterine eklenir
                     }
-                    System.out.println(snake.getWarDiamond()!= null ? snake.getWarDiamond()+ " Kazandınız!" : "");
+                    System.out.println(snake.getWarDiamond()!= null ? snake.getWarDiamond()+ " Kazandınız!" : "");  //yılanın ödülü varsa yazdırılır
                 }
                 getPlayer().setMoney(getPlayer().getMoney() + getObstacle().getAward());
+
 
                 System.out.println(isSnake ? "" : getObstacle().getAward() + " Para Kazandınız!");
                 System.out.println("Güncel Paranız: " + getPlayer().getMoney());

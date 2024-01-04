@@ -46,7 +46,7 @@ public class Armor implements WarDiamond{
 
     public void setPrice(int price) {this.price = price;}
 
-    @Override
+    @Override       //WarDiamond interface olduğu için bu metodu override etmek zorundayız.
     public Object getWarDiamond() {
         return this;
     }

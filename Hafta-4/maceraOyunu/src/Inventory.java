@@ -1,5 +1,5 @@
 public class Inventory {
-    boolean food = false;
+    boolean food = false;   //ödüllerin default değeri false
     boolean firewood = false;
     boolean water = false;
     private Weapon weapon;

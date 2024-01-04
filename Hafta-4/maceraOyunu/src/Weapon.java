@@ -60,7 +60,7 @@ public class Weapon implements WarDiamond{
         this.price = price;
     }
 
-    @Override
+    @Override       //WarDiamond interface olduğu için bu metodu override etmek zorundayız.
     public Object getWarDiamond() {
         return this;
     }

@@ -27,11 +27,13 @@ public class Game {
                 System.out.println("0 - Çıkış yap --> Oyunu sonlandırır.");
                 System.out.println("Lütfe gitmek istediğiniz bölgeyi seçiniz :");
                 int selectLoc = input.nextInt();
+
+
                 switch (selectLoc){
                     case 0:
                         location = null;
                         break;
-                    case 1:
+                    case 1:     //Tüm ödülleri topladığında oyunu kazanırsın.
                         if (player.getInventory().isFood() && player.getInventory().isFirewood() && player.getInventory().isWater()){
                             System.out.println("Tebrikler! Oyunu kazandınız!");
                             return;
@@ -45,7 +47,7 @@ public class Game {
                         if (player.getInventory().isFood() == false) {
                             location = new Cave(player);
                             break;
-                        } else {
+                        } else {        //Ödülü aldıktan sonra tekrar mağaraya girmesin diye
                             System.out.println("Mağaraya daha önce girdiniz ve ödülünüzü aldınız!");
                             continue;
                         }
@@ -53,7 +55,7 @@ public class Game {
                         if (player.getInventory().isFirewood() == false) {
                             location = new Forest(player);
                             break;
-                        } else {
+                        } else {        //Ödülü aldıktan sonra tekrar ormana girmesin diye
                             System.out.println("Ormana daha önce girdiniz ve ödülünüzü aldınız!");
                             continue;
                         }
@@ -61,7 +63,7 @@ public class Game {
                         if (player.getInventory().isWater() == false) {
                             location = new River(player);
                             break;
-                        } else {
+                        } else {        //Ödülü aldıktan sonra tekrar nehire girmesin diye
                             System.out.println("Nehire daha önce girdiniz ve ödülünüzü aldınız!");
                             continue;
                         }
