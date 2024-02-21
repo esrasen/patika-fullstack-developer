@@ -5,6 +5,7 @@ import dev.patika.library.core.exception.NotFoundException;
 import dev.patika.library.core.utilies.Msg;
 import dev.patika.library.dao.BookRepo;
 import dev.patika.library.dao.CategoryRepo;
+import dev.patika.library.dto.response.category.CategoryResultResponse;
 import dev.patika.library.entities.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,14 +48,14 @@ public class CategoryManager implements ICategoryService {
     }
 
     @Override
-    public String delete(Long id) {
+    public CategoryResultResponse delete(Long id) {
 
-        if (!bookRepo.existsByCategoryList_Id(id)){
+        if (!bookRepo.existsByCategoryList_Id(id)) {
 
             Category category = this.get(id);
             this.categoryRepo.delete(category);
-            return Msg.OK;
+            return CategoryResultResponse.builder().result(Msg.OK).build();
         }
-        return Msg.CATEGORY_EXIST;
+        return CategoryResultResponse.builder().result(Msg.CATEGORY_EXIST).build();
     }
 }
